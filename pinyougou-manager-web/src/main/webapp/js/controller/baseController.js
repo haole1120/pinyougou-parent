@@ -16,11 +16,11 @@ app.controller('baseController',function ($scope) {
         $scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
     }
 
+    $scope.selectIds=[];//选中的ID集合
     //用户勾选复选框
     $scope.updateSelection = function ($event, id) {
         if ($event.target.checked) {
             $scope.selectIds.push(id);//push方法向集合添加元素
-
         } else {
             var index = $scope.selectIds.indexOf(id);//查找值的位置
             $scope.selectIds.splice(index, 1);//参数1：移除的位置 参数2：移除的个数
