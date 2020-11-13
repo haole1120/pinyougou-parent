@@ -22,10 +22,44 @@
     <script type="text/javascript">
 
         var app = angular.module('pinyougou', ['pagination']);
-        app.controller('brandController', function ($scope, $http) {
+
+        //品牌服务
+        app.service("brandService", function ($http) {
+
+            this.findAll = function () {
+                return $http.get('../brand/findAll.do');
+            }
+
+            this.findPage = function (page, rows) {
+                return $http.get('../brand/findPage.do?page=' + page + '&rows=' + rows);
+            }
+
+            this.findOne = function (id) {
+                return $http.get('../brand/findOne.do?id=' + id);
+            }
+
+            this.add = function (entity) {
+                return $http.post('../brand/add.do', entity);
+            }
+
+            this.update = function (entity) {
+                return $http.post('../brand/update.do', entity);
+            }
+
+            this.dele = function (ids) {
+                return $http.get('../brand/delete.do?ids=' + ids);
+            }
+
+            this.search=function (page,rows,searchEntity) {
+                return $http.post('../brand/search.do?page=' + page + '&rows=' + rows, searchEntity);
+            }
+
+        });
+
+        app.controller('brandController', function ($scope, $http, brandService) {
             //查询品牌列表
             $scope.findAll = function () {
-                $http.get('../brand/findAll.do').success(
+                brandService.findAll().success(
                     function (response) {
                         $scope.list = response;
 
@@ -52,8 +86,8 @@
             }
 
             //分页
-            $scope.findPage = function (page, size) {
-                $http.get('../brand/findPage.do?page=' + page + '&size=' + size).success(
+            $scope.findPage = function (page, rows) {
+                brandService.findPage(page, rows).success(
                     function (response) {
                         $scope.list = response.rows;//显示当前页数据
                         $scope.paginationConf.totalItems = response.total;//更新总记录数
@@ -64,12 +98,13 @@
 
             //新增
             $scope.save = function () {
-                var methodName = 'add';//方法名
+                var object = null;
                 if ($scope.entity.id != null) {
-                    methodName = 'update';
+                    object = brandService.update($scope.entity);
+                } else {
+                    object = brandService.add($scope.entity);
                 }
-
-                $http.post('../brand/' + methodName + '.do', $scope.entity).success(
+                object.success(
                     function (response) {
                         if (response.success) {
                             $scope.reloadList();
@@ -83,7 +118,7 @@
 
             //查询实体
             $scope.findOne = function (id) {
-                $http.get('../brand/findOne.do?id=' + id).success(
+                brandService.findOne(id).success(
                     function (response) {
                         $scope.entity = response;
                     }
@@ -105,7 +140,8 @@
 
             //删除
             $scope.dele = function () {
-                $http.get('../brand/delete.do?ids=' + $scope.selectIds).success(
+
+                brandService.dele($scope.selectIds).success(
                     function (response) {
                         if (response.success) {
                             $scope.reloadList();
@@ -117,10 +153,10 @@
 
             }
 
-            $scope.searchEntity={};//初始化，不然因为其为null，报400
+            $scope.searchEntity = {};//初始化，不然因为其为null，报400
             //条件查询
-            $scope.search = function (page,size) {
-                $http.post('../brand/search.do?page=' + page + '&size=' + size, $scope.searchEntity).success(
+            $scope.search = function (page, rows) {
+                brandService.search(page,rows,$scope.searchEntity).success(
                     function (response) {
                         $scope.list = response.rows;//显示当前页数据
                         $scope.paginationConf.totalItems = response.total;//更新总记录数
