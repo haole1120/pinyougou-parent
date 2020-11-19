@@ -20,7 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  *
  * @author Administrator
  */
-@Service
+@Service(timeout = 5000)
 public class ContentServiceImpl implements ContentService {
 
     @Autowired
