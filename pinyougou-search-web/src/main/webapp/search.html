@@ -366,9 +366,10 @@
 											<i>{{item.price}}</i>
 										</strong>
 								</div>
-								<div class="attr">
-									<em>{{item.title}}</em>
+								<div class="attr" ng-bind-html="item.title | trustHtml"> <!-- 竖线 | 用于调用过滤器-->
+
 								</div>
+
 								<div class="cu">
 									<em></em>
 								</div>
