@@ -5,11 +5,13 @@ import com.pinyougou.pojo.TbItem;
 import com.pinyougou.search.service.ItemSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.*;
 import org.springframework.data.solr.core.query.result.*;
 
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,9 @@ public class ItemSearchServiceImpl implements ItemSearchService {
     @Override
     public Map search(Map searchMap) {
         Map map = new HashMap();
+        //空格处理
+        String keywords = (String) searchMap.get("keywords");
+        searchMap.put("keywords", keywords.replace(" ", ""));//关键字去掉空格
         //1.查询列表
         map.putAll(searchList(searchMap));
         //2.分组查询 商品分类列表
@@ -111,6 +116,21 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
         query.setOffset((pageNo - 1) * pageSize);//起始索引
         query.setRows(pageSize);//每页记录数
+
+        //1.7按价格排序
+
+        String sortValue = (String) searchMap.get("sort");//升序ASC 降序DESC
+        String sortField = (String) searchMap.get("sortField");//排序字段
+        if (sortValue != null && !sortValue.equals("")) {
+            if (sortValue.equals("ASC")) {
+                Sort sort = new Sort(Sort.Direction.ASC, "item_" + sortField);
+                query.addSort(sort);
+            }
+            if (sortValue.equals("DESC")) {
+                Sort sort = new Sort(Sort.Direction.DESC, "item_" + sortField);
+                query.addSort(sort);
+            }
+        }
 
 
         //************获取高亮结果集***************

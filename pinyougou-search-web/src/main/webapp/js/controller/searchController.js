@@ -8,7 +8,9 @@ app.controller('searchController', function ($scope, searchService) {
         'spec': {},
         'price': '',
         'pageNo': 1,
-        'pageSize': 40
+        'pageSize': 40,
+        'sort':'',
+        'sortField':''
     }
 
     //搜索
@@ -102,6 +104,12 @@ app.controller('searchController', function ($scope, searchService) {
         } else {
             return false;
         }
+    }
+
+    $scope.sortSearch=function (sortField, sort) {
+        $scope.searchMap.sortField=sortField;
+        $scope.searchMap.sort=sort;
+        $scope.search();
     }
 
 });
