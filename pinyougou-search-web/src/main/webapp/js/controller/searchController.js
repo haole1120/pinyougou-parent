@@ -9,8 +9,8 @@ app.controller('searchController', function ($scope, searchService) {
         'price': '',
         'pageNo': 1,
         'pageSize': 40,
-        'sort':'',
-        'sortField':''
+        'sort': '',
+        'sortField': ''
     }
 
     //搜索
@@ -106,10 +106,21 @@ app.controller('searchController', function ($scope, searchService) {
         }
     }
 
-    $scope.sortSearch=function (sortField, sort) {
-        $scope.searchMap.sortField=sortField;
-        $scope.searchMap.sort=sort;
+    //排序查询
+    $scope.sortSearch = function (sortField, sort) {
+        $scope.searchMap.sortField = sortField;
+        $scope.searchMap.sort = sort;
         $scope.search();
+    }
+
+    //判断关键字是否是品牌
+    $scope.keywordsIsBrand = function () {
+        for (var i = 0; i < $scope.resultMap.brandList.length; i++) {
+            if ($scope.searchMap.keywords.indexOf($scope.resultMap.brandList[i].text) >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
 });

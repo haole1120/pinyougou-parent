@@ -84,7 +84,8 @@
                                 <div class="input-append">
                                     <input type="text" id="autocomplete" ng-model="searchMap.keywords" type="text"
                                            class="input-error input-xxlarge"/>
-                                    <button class="sui-btn btn-xlarge btn-danger" ng-click="searchMap.pageNo = 1;search()" type="button">搜索
+                                    <button class="sui-btn btn-xlarge btn-danger"
+                                            ng-click="searchMap.pageNo = 1;search()" type="button">搜索
                                     </button>
                                 </div>
                             </form>
@@ -183,7 +184,8 @@
                 </div>
                 <div class="fl ext"></div>
             </div>
-            <div class="type-wrap logo" ng-if="resultMap.brandList != null && searchMap.brand==''">
+            <div class="type-wrap logo"
+                 ng-if="resultMap.brandList != null && searchMap.brand=='' && keywordsIsBrand()==false">
                 <div class="fl key brand">品牌</div>
                 <div class="value logos">
                     <ul class="logo-list">
