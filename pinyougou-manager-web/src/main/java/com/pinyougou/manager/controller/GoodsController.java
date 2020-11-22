@@ -133,10 +133,17 @@ public class GoodsController {
             goodsService.updateStatus(ids, status);
 
             if ("1".equals(status)) {//如果审核通过
+                //*****导入到索引库
                 //得到需要导入的SKU列表
                 List<TbItem> itemList = goodsService.findItemListByGoodsIdListAndStatus(ids, status);
                 //导入到solr
                 itemSearchService.importList(itemList);
+
+                //*****生成商品详细页
+                for (Long goodsId : ids) {
+                    itemPageService.genItemHtml(goodsId);
+                }
+
             }
             return new Result(true, "成功");
         } catch (Exception e) {

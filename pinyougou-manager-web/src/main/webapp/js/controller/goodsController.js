@@ -99,6 +99,7 @@ app.controller('goodsController', function ($scope, $controller, itemCatService,
                 if (response.success) {
                     $scope.reloadList();//刷新页面
                     $scope.selectIds = [];
+                    alert(response.message);
                 } else {
                     alert(response.message);
                 }

@@ -267,7 +267,6 @@ public class GoodsServiceImpl implements GoodsService {
         TbItemExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(status);//状态
         criteria.andGoodsIdIn(Arrays.asList(goodsIds));//指定条件：SPU ID集合
-
         return itemMapper.selectByExample(example);
     }
 
