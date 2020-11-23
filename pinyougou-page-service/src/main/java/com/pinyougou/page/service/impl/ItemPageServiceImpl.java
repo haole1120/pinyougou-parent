@@ -1,6 +1,5 @@
 package com.pinyougou.page.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.pinyougou.mapper.TbGoodsDescMapper;
 import com.pinyougou.mapper.TbGoodsMapper;
 import com.pinyougou.mapper.TbItemCatMapper;
@@ -14,7 +13,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.*;
@@ -81,6 +80,19 @@ public class ItemPageServiceImpl implements ItemPageService {
             out.close();
             return true;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteItemHtml(Long[] goodsIds) {
+        try {
+            for (Long goodsId : goodsIds) {
+                new File(pagedir + goodsId + ".html").delete();
+            }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
