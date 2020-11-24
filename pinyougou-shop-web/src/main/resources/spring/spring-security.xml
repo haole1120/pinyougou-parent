@@ -35,7 +35,7 @@
     </authentication-manager>
 
     <!--认证类-->
-    <beans:bean id="userDetailService" class="com.pinyougou.service.UserDetailServiceImpl">
+    <beans:bean id="userDetailService" class="com.pinyougou.user.service.UserDetailServiceImpl">
         <beans:property name="sellerService" ref="sellerService"></beans:property>
     </beans:bean>
     <!--引用dubbox服务-->

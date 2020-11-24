@@ -1,4 +1,4 @@
-package com.pinyougou.service;
+package com.pinyougou.user.service;
 
 import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
