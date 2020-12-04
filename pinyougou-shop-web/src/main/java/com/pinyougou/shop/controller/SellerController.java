@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/seller")
 public class SellerController {
 
-	@Reference
+	@Reference(timeout = 5000)
 	private SellerService sellerService;
 	
 	/**

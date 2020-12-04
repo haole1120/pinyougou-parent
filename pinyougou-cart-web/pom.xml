@@ -133,7 +133,23 @@
 
     </dependencies>
 
-
+    <properties>
+        <port>9107</port>
+    </properties>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <port>9107</port>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <port>9207</port>
+            </properties>
+        </profile>
+    </profiles>
     <build>
         <plugins>
             <plugin>

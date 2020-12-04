@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/typeTemplate")
 public class TypeTemplateController {
 
-    @Reference
+    @Reference(timeout = 5000)
     private TypeTemplateService typeTemplateService;
 
     /**

@@ -10,7 +10,6 @@
 
     <dubbo:protocol name="dubbo" port="20886"></dubbo:protocol>
 	<dubbo:application name="pinyougou-user-service"/>
-    <dubbo:registry address="zookeeper://192.168.25.129:2181"/>
     <dubbo:annotation package="com.pinyougou.user.service.impl" />
    
    

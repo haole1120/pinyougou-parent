@@ -10,7 +10,6 @@
 
     <dubbo:protocol name="dubbo" port="20889"></dubbo:protocol>
     <dubbo:application name="pinyougou-seckill-service"/>
-    <dubbo:registry address="zookeeper://192.168.25.129:2181"/>
     <dubbo:annotation package="com.pinyougou.seckill.service.impl"/>
 
     <bean id="idWorker" class="util.IdWorker">

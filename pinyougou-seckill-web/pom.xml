@@ -122,6 +122,23 @@
 
     </dependencies>
 
+    <properties>
+        <port>9109</port>
+    </properties>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <port>9109</port>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <port>9209</port>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -131,7 +148,7 @@
                 <version>2.2</version>
                 <configuration>
                     <!-- 指定端口 -->
-                    <port>9109</port>
+                    <port>${port}</port>
                     <!-- 请求路径 -->
                     <path>/</path>
                 </configuration>

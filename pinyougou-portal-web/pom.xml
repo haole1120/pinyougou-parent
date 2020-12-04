@@ -91,7 +91,23 @@
         </dependency>
 
     </dependencies>
-
+    <properties>
+        <port>9103</port>
+    </properties>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <port>9103</port>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <port>9203</port>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -101,7 +117,7 @@
                 <version>2.2</version>
                 <configuration>
                     <!-- 指定端口 -->
-                    <port>9103</port>
+                    <port>${port}</port>
                     <!-- 请求路径 -->
                     <path>/</path>
                 </configuration>
